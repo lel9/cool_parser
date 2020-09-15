@@ -4,194 +4,202 @@ import java.util.List;
 
 public class CoolAST {
     public static class ASTNode {
+        public String nodetype = this.getClass().getSimpleName();
     }
 
-    public static class expression extends ASTNode {
+    public static class Expression extends ASTNode {
     }
 
-    public static class boolConst extends expression{
+    public static class BoolConst extends Expression {
         public boolean value;
-        public boolConst(boolean v) {
+        public BoolConst(boolean v) {
             value = v;
         }
     }
 
-    public static class stringConst extends expression{
+    public static class StringConst extends Expression {
         public String value;
-        public stringConst(String v) {
+        public StringConst(String v) {
             value = v;
         }
     }
 
-    public static class intConst extends expression{
+    public static class IntConst extends Expression {
         public int value;
-        public intConst(int v) {
+        public IntConst(int v) {
             value = v;
         }
     }
 
-    public static class terminal extends expression{
+    public static class Terminal extends Expression {
         public String name;
-        public terminal(String v) {
+        public Terminal(String v) {
             name = v;
         }
     }
     
-    public static class comp extends expression{
-        public expression e1;
-        public comp(expression v) {
+    public static class BoolNot extends Expression {
+        public Expression e1;
+        public BoolNot(Expression v) {
             e1 = v;
         }
     }
     
-    public static class equal extends expression{
-        public expression e1;
-        public expression e2;
-        public equal(expression v1, expression v2) {
+    public static class Equal extends Expression {
+        public Expression e1;
+        public Expression e2;
+        public Equal(Expression v1, Expression v2) {
             e1 = v1;
             e2 = v2;
         }
     }
 
-    public static class lessEqual extends expression{
-        public expression e1;
-        public expression e2;
-        public lessEqual(expression v1, expression v2) {
+    public static class LessEqual extends Expression {
+        public Expression e1;
+        public Expression e2;
+        public LessEqual(Expression v1, Expression v2) {
             e1 = v1;
             e2 = v2;
         }
     }
 
-    public static class lt extends expression{
-        public expression e1;
-        public expression e2;
-        public lt(expression v1, expression v2) {
+    public static class LessThan extends Expression {
+        public Expression e1;
+        public Expression e2;
+        public LessThan(Expression v1, Expression v2) {
             e1 = v1;
             e2 = v2;
         }
     }
     
-    public static class neg extends expression{
-        public expression e1;
-        public neg(expression v) {
+    public static class Negative extends Expression {
+        public Expression e1;
+        public Negative(Expression v) {
             e1 = v;
         }
     }
 
-    public static class division extends expression{
-        public expression e1;
-        public expression e2;
-        public division(expression v1, expression v2) {
+    public static class Division extends Expression {
+        public Expression e1;
+        public Expression e2;
+        public Division(Expression v1, Expression v2) {
             e1 = v1;
             e2 = v2;
         }
     }
     
-    public static class multiple extends expression{
-        public expression e1;
-        public expression e2;
-        public multiple(expression v1, expression v2) {
+    public static class Multiple extends Expression {
+        public Expression e1;
+        public Expression e2;
+        public Multiple(Expression v1, Expression v2) {
             e1 = v1;
             e2 = v2;
         }
     }
 
-    public static class minus extends expression{
-        public expression e1;
-        public expression e2;
-        public minus(expression v1, expression v2) {
+    public static class Minus extends Expression {
+        public Expression e1;
+        public Expression e2;
+        public Minus(Expression v1, Expression v2) {
             e1 = v1;
             e2 = v2;
         }
     }
     
-    public static class add extends expression {
-        public expression e1;
-        public expression e2;
-        public add(expression v1, expression v2) {
+    public static class Add extends Expression {
+        public Expression e1;
+        public Expression e2;
+        public Add(Expression v1, Expression v2) {
             e1 = v1;
             e2 = v2;
         }
     }
     
-    public static class isvoid extends expression{
-        public expression e1;
-        public isvoid(expression v) {
+    public static class IsVoid extends Expression {
+        public Expression e1;
+        public IsVoid(Expression v) {
             e1 = v;
         }
     }
     
-    public static class new_ extends expression{
+    public static class New extends Expression {
         public String typeid;
-        public new_(String t) {
+        public New(String t) {
             typeid = t;
         }
     }
     
-    public static class assign extends expression{
+    public static class Assign extends Expression {
         public String name;
-        public expression e1;
-        public assign(String n, expression v1) {
+        public Expression e1;
+        public Assign(String n, Expression v1) {
             name = n;
             e1 = v1;
         }
     }
     
-    public static class block extends expression{
-        public List<expression> l1;
-        public block(List<expression> v1) {
-            l1 = v1;
+    public static class Block extends Expression {
+        public List<Expression> expressions;
+        public Block(List<Expression> v1) {
+            expressions = v1;
         }
     }
     
-    public static class loop extends expression{
-        public expression predicate;
-        public expression body;
-        public loop(expression v1, expression v2) {
+    public static class Loop extends Expression {
+        public Expression predicate;
+        public Expression body;
+        public Loop(Expression v1, Expression v2) {
             predicate = v1;
             body = v2;
         }
     }
     
-    public static class if_ extends expression{
-        public expression predicate;
-        public expression ifbody;
-        public expression elsebody;
-        public if_(expression v1, expression v2, expression v3) {
+    public static class If extends Expression {
+        public Expression predicate;
+        public Expression ifbody;
+        public Expression elsebody;
+        public If(Expression v1, Expression v2, Expression v3) {
             predicate = v1;
             ifbody = v2;
             elsebody = v3;
         }
     }
     
-    public static class let extends expression{
-        public String name;
-        public String typeid;
-        public expression value;
-        public expression body;
-        public let(String n, String t, expression v, expression b) {
-            name = n;
-            typeid = t;
-            value = v;
+    public static class Let extends Expression {
+        public List<LetElem> letList;
+        public Expression body;
+        public Let(List<LetElem> list, Expression b) {
+            letList = list;
             body = b;
         }
     }
-    
-    public static class ownMethodCall extends expression {
+
+    public static class LetElem extends ASTNode {
         public String name;
-        public List<expression> actuals;
-        public ownMethodCall(String n, List<expression> a) {
+        public String typeid;
+        public Expression value;
+        public LetElem(String n, String t, Expression v) {
+            name = n;
+            typeid = t;
+            value = v;
+        }
+    }
+
+    public static class OwnMethodCall extends Expression {
+        public String name;
+        public List<Expression> actuals;
+        public OwnMethodCall(String n, List<Expression> a) {
             name = n;
             actuals = a;
         }
     }
     
-    public static class methodCall extends expression{
-        public expression caller;
+    public static class MethodCall extends Expression {
+        public Expression caller;
         public String typeid;
         public String name;
-        public List<expression> actuals;
-        public methodCall(expression v1, String t, String n, List<expression> a) {
+        public List<Expression> actuals;
+        public MethodCall(Expression v1, String t, String n, List<Expression> a) {
             caller = v1;
             typeid = t;
             name = n;
@@ -199,78 +207,78 @@ public class CoolAST {
         }
     }
     
-    public static class typcase extends expression{
-        public expression predicate;
-        public List<branch> branches;
-        public typcase(expression p, List<branch> b) {
+    public static class Case extends Expression {
+        public Expression predicate;
+        public List<Branch> branches;
+        public Case(Expression p, List<Branch> b) {
             predicate = p;
             branches = b;
         }
     }
     
-    public static class branch extends ASTNode {
+    public static class Branch extends ASTNode {
         public String name;
         public String type;
-        public expression value;
-        public branch(String n, String t, expression v) {
+        public Expression value;
+        public Branch(String n, String t, Expression v) {
             name = n;
             type = t;
             value = v;
         }
     }
     
-    public static class formal extends ASTNode {
+    public static class Argument extends ASTNode {
         public String name;
         public String typeid;
-        public formal(String n, String t) {
+        public Argument(String n, String t) {
             name = n;
             typeid = t;
         }
     }
     
-    public static class feature extends ASTNode {
-        public feature(){
+    public static class Feature extends ASTNode {
+        public Feature() {
         }
     }
 
-    public static class method extends feature {
+    public static class Method extends Feature {
         public String name;
-        public List<formal> formals;
+        public List<Argument> arguments;
         public String typeid;
-        public expression body;
-        public method(String n, List<formal> f, String t, expression b) {
+        public Expression body;
+        public Method(String n, List<Argument> f, String t, Expression b) {
             name = n;
-            formals = f;
+            arguments = f;
             typeid = t;
             body = b;
         }
     }
     
-    public static class attr extends feature {
+    public static class Property extends Feature {
         public String name;
         public String typeid;
-        public expression value;
-        public attr(String n, String t, expression v) {
+        public Expression value;
+        public Property(String n, String t, Expression v) {
             name = n;
             typeid = t;
             value = v;
         }
     }
     
-    public static class class_ extends ASTNode {
+    public static class Class extends ASTNode {
         public String name;
         public String parent;
-        public List<feature> features;
-        public class_(String n, String p, List<feature> fs) {
+        public List<Feature> features;
+        public Class(String n, String p, List<Feature> fs) {
             name = n;
             parent = p;
             features = fs;
         }
     }
 
-    public static class program extends ASTNode {
-        public List<class_> classes;
-        public program(List<class_> c) {
+    public static class Program extends ASTNode {
+        public List<Class> classes;
+        public Program(List<Class> c) {
             classes = c;
         }
     }
