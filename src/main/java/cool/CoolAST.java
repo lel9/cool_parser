@@ -127,6 +127,7 @@ public class CoolAST {
         public New(String t) {
             typeid = t;
         }
+        public New() {}
     }
     
     public static class Assign extends Expression {
@@ -136,6 +137,7 @@ public class CoolAST {
             name = n;
             e1 = v1;
         }
+        public Assign() {}
     }
     
     public static class Block extends Expression {
@@ -143,6 +145,7 @@ public class CoolAST {
         public Block(List<Expression> v1) {
             expressions = v1;
         }
+        public Block() {}
     }
     
     public static class Loop extends Expression {
@@ -152,6 +155,7 @@ public class CoolAST {
             predicate = v1;
             body = v2;
         }
+        public Loop() {}
     }
     
     public static class If extends Expression {
@@ -163,6 +167,7 @@ public class CoolAST {
             ifbody = v2;
             elsebody = v3;
         }
+        public If() {}
     }
     
     public static class Let extends Expression {
@@ -172,6 +177,7 @@ public class CoolAST {
             letList = list;
             body = b;
         }
+        public Let() {}
     }
 
     public static class LetElem extends ASTNode {
@@ -183,6 +189,7 @@ public class CoolAST {
             typeid = t;
             value = v;
         }
+        public LetElem() {}
     }
 
     public static class OwnMethodCall extends Expression {
@@ -192,6 +199,7 @@ public class CoolAST {
             name = n;
             actuals = a;
         }
+        public OwnMethodCall() {}
     }
     
     public static class MethodCall extends Expression {
@@ -205,6 +213,7 @@ public class CoolAST {
             name = n;
             actuals = a;
         }
+        public MethodCall() {}
     }
     
     public static class Case extends Expression {
@@ -214,6 +223,7 @@ public class CoolAST {
             predicate = p;
             branches = b;
         }
+        public Case() {}
     }
     
     public static class Branch extends ASTNode {
@@ -225,6 +235,7 @@ public class CoolAST {
             type = t;
             value = v;
         }
+        public Branch() {}
     }
     
     public static class Argument extends ASTNode {
@@ -234,6 +245,7 @@ public class CoolAST {
             name = n;
             typeid = t;
         }
+        public Argument() {}
     }
     
     public static class Feature extends ASTNode {
@@ -252,6 +264,7 @@ public class CoolAST {
             typeid = t;
             body = b;
         }
+        public Method() {}
     }
     
     public static class Property extends Feature {
@@ -263,6 +276,7 @@ public class CoolAST {
             typeid = t;
             value = v;
         }
+        public Property() {}
     }
     
     public static class Class extends ASTNode {
@@ -274,6 +288,7 @@ public class CoolAST {
             parent = p;
             features = fs;
         }
+        public Class() {}
     }
 
     public static class Program extends ASTNode {
@@ -281,5 +296,6 @@ public class CoolAST {
         public Program(List<Class> c) {
             classes = c;
         }
+        public Program() {}
     }
 }
